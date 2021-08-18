@@ -1,0 +1,7 @@
+sources/*.zip
+es/
+es-reduced/
+eu/
+eu-reduced/
+release*
+poi-to-discover-media*
