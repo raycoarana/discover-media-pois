@@ -60,8 +60,11 @@ jobs:
             release-${{ env.date }}//Release-${{ env.date }}-EU.zip
             release-${{ env.date }}//Release-${{ env.date }}-EU-WithoutHiddenAndPhoto.zip
 
-      - name: Commit hashes
-        run: |
-          git add sources/ \
-          && git commit -m "Update hashes with ${{ env.data }}" \
-          && git push
+      - name: Commit & Push new hashes
+        uses: github-actions-x/commit@v2.8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: master
+          commit-message: "Update hashes of release ${{ env.date }}"
+          force-add: true
+          files: sources/
