@@ -33,7 +33,7 @@ jobs:
           && echo "version=$(date +'v%Y%m%d')" >> $GITHUB_ENV
 
       - name: Download files
-        run: kotlin downloader.main.kts ${{ env.date }}
+        run: kotlin downloader.main.kts "{{ secrets.LUFOP_USERNAME}}" "{{ secrets.LUFOP_PASSWORD}}"
 
       - name: Generate
         run: generate.sh ${{ env.date }}
