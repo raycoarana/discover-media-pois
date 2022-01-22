@@ -41,7 +41,7 @@ jobs:
         run: gradle run --args="\"{{ secrets.LUFOP_USERNAME}}\" \"{{ secrets.LUFOP_PASSWORD}}\""
 
       - name: Generate
-        run: generate.sh ${{ env.date }}
+        run: ./generate.sh ${{ env.date }}
 
       - name: Create Github release
         uses: softprops/action-gh-release@v1
