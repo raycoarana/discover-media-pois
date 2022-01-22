@@ -14,6 +14,11 @@ jobs:
           distribution: adopt-hotspot
           java-version: 11
 
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 6.5.1
+
       - uses: robinraju/release-downloader@v1.3
         with:
           repository: "raycoarana/poi-to-discover-media"
@@ -33,7 +38,7 @@ jobs:
           && echo "version=$(date +'v%Y%m%d')" >> $GITHUB_ENV
 
       - name: Download files
-        run: kotlin -cp lib/jsoup-1.14.3.jar downloader.main.kts "{{ secrets.LUFOP_USERNAME}}" "{{ secrets.LUFOP_PASSWORD}}"
+        run: gradle run --args="\"{{ secrets.LUFOP_USERNAME}}\" \"{{ secrets.LUFOP_PASSWORD}}\""
 
       - name: Generate
         run: generate.sh ${{ env.date }}
@@ -54,3 +59,9 @@ jobs:
             release-${{ env.date }}//Release-${{ env.date }}-ES-WithoutHiddenAndPhoto.zip
             release-${{ env.date }}//Release-${{ env.date }}-EU.zip
             release-${{ env.date }}//Release-${{ env.date }}-EU-WithoutHiddenAndPhoto.zip
+
+      - name: Commit hashes
+        run: |
+          git add sources/ \
+          && git commit -m "Update hashes with ${{ env.data }}" \
+          && git push

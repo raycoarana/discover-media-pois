@@ -1,5 +1,7 @@
+build/
+.gradle/
+gradle/
 sources/*.zip
-sources/*.zip.md5
 es/
 es-reduced/
 eu/
