@@ -24,7 +24,8 @@ jobs:
         run: |
           mv poi-to-discover-media-*.zip poi-to-discover-media.zip \
           && unzip poi-to-discover-media.zip \
-          && mv poi-to-discover-media-* poi-to-discover-media
+          && mv poi-to-discover-media-* poi-to-discover-media \
+          && mkdir sources
 
       - name: Set current date & version
         run: |
@@ -45,7 +46,7 @@ jobs:
           target_commitish: ${{ github.sha }}
           draft: false
           prerelease: false
-          tag_name: "${{ env.date_without_dashes }}"
+          tag_name: "${{ env.version }}"
           name: "speedradar-${{ env.date }}"
           body_path: ${{ github.workspace }}/tmp/release-notes.txt
           files: |
