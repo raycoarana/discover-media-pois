@@ -29,14 +29,14 @@ jobs:
       - name: Set current date
         id: current-date
         run: |
-          echo "::set-output name=date::$(date +'%Y-%m-%d')" \
-          echo "::set-output name=date-without-dashes::$(date +'%Y%m%d')" \
+          echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV \
+          && echo "date-without-dashes=$(date +'%Y%m%d') >> $GITHUB_ENV"
 
       - name: Download files
-        run: kotlin downloader.main.kts ${{ steps.current-date.outputs.date }}
+        run: kotlin downloader.main.kts ${{ env.date }}
 
       - name: Generate
-        run: generate.sh ${{ steps.current-date.outputs.date }}
+        run: generate.sh ${{ env.date }}
 
       - name: Create Github release
         uses: softprops/action-gh-release@v1
@@ -46,11 +46,11 @@ jobs:
           target_commitish: ${{ github.sha }}
           draft: false
           prerelease: false
-          tag_name: "v${{ steps.current-date.outputs.date-without-dashes }}"
-          name: "speedradar-${{ steps.current-date.outputs.date }}"
+          tag_name: "v${{ env.date-without-dashes }}"
+          name: "speedradar-${{ env.date }}"
           body_path: ${{ github.workspace }}/tmp/release-notes.txt
           files: |
-            release-${{ steps.current-date.outputs.date }}//Release-${{ steps.current-date.outputs.date }}-ES.zip
-            release-${{ steps.current-date.outputs.date }}//Release-${{ steps.current-date.outputs.date }}-ES-WithoutHiddenAndPhoto.zip
-            release-${{ steps.current-date.outputs.date }}//Release-${{ steps.current-date.outputs.date }}-EU.zip
-            release-${{ steps.current-date.outputs.date }}//Release-${{ steps.current-date.outputs.date }}-EU-WithoutHiddenAndPhoto.zip
+            release-${{ env.date }}//Release-${{ env.date }}-ES.zip
+            release-${{ env.date }}//Release-${{ env.date }}-ES-WithoutHiddenAndPhoto.zip
+            release-${{ env.date }}//Release-${{ env.date }}-EU.zip
+            release-${{ env.date }}//Release-${{ env.date }}-EU-WithoutHiddenAndPhoto.zip
