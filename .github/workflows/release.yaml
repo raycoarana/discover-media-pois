@@ -26,11 +26,10 @@ jobs:
           && unzip poi-to-discover-media.zip \
           && mv poi-to-discover-media-* poi-to-discover-media
 
-      - name: Set current date
-        id: current-date
+      - name: Set current date & version
         run: |
           echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV \
-          && echo "date_without_dashes=$(date +'%Y%m%d') >> $GITHUB_ENV"
+          && echo "version=$(date +'v%Y%m%d')" >> $GITHUB_ENV
 
       - name: Download files
         run: kotlin downloader.main.kts ${{ env.date }}
@@ -46,7 +45,7 @@ jobs:
           target_commitish: ${{ github.sha }}
           draft: false
           prerelease: false
-          tag_name: "v${{ env.date_without_dashes }}"
+          tag_name: "${{ env.date_without_dashes }}"
           name: "speedradar-${{ env.date }}"
           body_path: ${{ github.workspace }}/tmp/release-notes.txt
           files: |
