@@ -1,7 +1,10 @@
 sources/*.zip
+sources/*.zip.md5
 es/
 es-reduced/
 eu/
 eu-reduced/
 release*
 poi-to-discover-media*
+!release.yaml
+.idea/
