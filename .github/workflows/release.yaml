@@ -30,7 +30,7 @@ jobs:
         id: current-date
         run: |
           echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV \
-          && echo "date-without-dashes=$(date +'%Y%m%d') >> $GITHUB_ENV"
+          && echo "date_without_dashes=$(date +'%Y%m%d') >> $GITHUB_ENV"
 
       - name: Download files
         run: kotlin downloader.main.kts ${{ env.date }}
@@ -46,7 +46,7 @@ jobs:
           target_commitish: ${{ github.sha }}
           draft: false
           prerelease: false
-          tag_name: "v${{ env.date-without-dashes }}"
+          tag_name: "v${{ env.date_without_dashes }}"
           name: "speedradar-${{ env.date }}"
           body_path: ${{ github.workspace }}/tmp/release-notes.txt
           files: |
