@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
+        with:
+          ref: master
       - uses: actions/setup-java@v2
         with:
           distribution: adopt-hotspot
@@ -67,4 +68,5 @@ jobs:
           push-branch: master
           commit-message: "Update hashes of release ${{ env.date }}"
           force-add: true
+          rebase: true
           files: sources/
