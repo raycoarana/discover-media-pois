@@ -30,8 +30,7 @@ jobs:
         run: |
           mv poi-to-discover-media-*.zip poi-to-discover-media.zip \
           && unzip poi-to-discover-media.zip \
-          && mv poi-to-discover-media-* poi-to-discover-media \
-          && mkdir sources
+          && mv poi-to-discover-media-* poi-to-discover-media
 
       - name: Set current date & version
         run: |
