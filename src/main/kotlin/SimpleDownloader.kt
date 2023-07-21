@@ -9,7 +9,15 @@ class SimpleDownloader(
 ) : Downloader {
     override fun download(baseDir: File): File {
         val destination = File(baseDir, filename)
-        FileUtils.copyURLToFile(URL(url), destination, 30000, 30000)
+        val zipFileResponse = Jsoup.connect(url)
+            .method(Connection.Method.GET)
+            .execute()
+        if (zipFileResponse.contentType() != "application/zip") {
+            error("Unexpected content type ${zipFileResponse.contentType()}")
+        }
+        zipFileResponse.bodyStream().use { bodyStream ->
+            FileUtils.copyInputStreamToFile(bodyStream, destination)
+        }
         return destination
     }
 }
