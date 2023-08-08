@@ -14,6 +14,7 @@ class SimpleDownloader(
         val zipFileResponse = Jsoup.connect(url)
             .method(Connection.Method.GET)
             .ignoreContentType(true)
+            .maxBodySize(0)
             .execute()
         if (zipFileResponse.contentType() != "application/zip") {
             error("Unexpected content type ${zipFileResponse.contentType()}")
