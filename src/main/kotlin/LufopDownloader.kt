@@ -23,7 +23,7 @@ class LufopDownloader(
         val sid = loginForm.getValueByName("sid")
         val formToken = loginForm.getValueByName("form_token")
 
-        val loginResult = Jsoup.connect("http://www.mikeportnoy.com/forum/login.aspx")
+        val loginResult = Jsoup.connect("https://lufop.net/forum/ucp.php?mode=login&sid=$sid")
             .data("username", username)
             .data("password", password)
             .data("redirect", redirect)
